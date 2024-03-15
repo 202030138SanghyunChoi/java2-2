@@ -1,6 +1,7 @@
 # 이러면 job.md랑 job 디렉토리 안에 있는 파일들은 안올라감(*는 모든 것)
 job.md
 job/
+.gitignore
 
 # Compiled class file
 *.class
