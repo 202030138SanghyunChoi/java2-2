@@ -9,10 +9,10 @@
     * .java, .c, .cpp >>>(컴파일)>>> .exe, .class
 3. 자바의 플랫폼 독립성(WORA)
     * WORA(Write Once Run Anywhere) - 자바 가상 기계(JVM) 덕분에 **한 번 작성하고 컴파일된 자바 코드는 운영체제나 CPU 등 플랫폼에 상관 없이** 어떤 컴퓨터에서든 동일하게 실행됨.
-    * 플랫폼 독립적 특징 - 개발자 입장에서 소프트웨어를 개발할 때 플랫폼에 독립적이지 않다면 각각의 플랫폼들마다 소프트웨어를 일일이 하나씩 만들어줘야함.<br>![그림1](image01.png)
+    * 플랫폼 독립적 특징 - 개발자 입장에서 소프트웨어를 개발할 때 플랫폼에 독립적이지 않다면 각각의 플랫폼들마다 소프트웨어를 일일이 하나씩 만들어줘야함.<br>![그림1](image/image01.png)
 4. JDK(Java Development Kit)와 JRE(Java Runtime Environment)
     * JDK는 개발자를 위한 소프트웨어, JRE는 사용자를 위한 소프트웨어
-    * JDK 안에 JRE가 포함되어 있으며 JRE 안에 후술할 JAVA API가 포함되어 있음.<br>![그림2](image02.png)
+    * JDK 안에 JRE가 포함되어 있으며 JRE 안에 후술할 JAVA API가 포함되어 있음.<br>![그림2](image/image02.png)
 5. 모듈화
     * 모듈 - 자바 패키지들과 여러 파일들을 묶은 단위
     * 모듈들은 jmods 디렉터리 안에 포함
