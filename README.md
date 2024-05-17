@@ -1,5 +1,75 @@
 # 최상현 202030138
 
+## 11주차 수업 내용(05.17)
+1. 배치 관리자 - 컨테이너에 부착되는 컴포넌트의 크기와 위치를 지정.
+    * 컴포넌트는 하나의 배치관리자를 가진다.
+    * 컨테이너에 컴포넌트가 부착되는 시점에 배치관리자는 컴포넌트의 위치와 크기를 결정한다.
+    * 컨테이너의 크기가 변경되면 배치관리자는 컨테이너의 모든 컴포넌트들의 위치와 크기를 재조정한다.
+
+2. 배치 관리자의 종류
+    1. FlowLayout
+        * 삽입되는 순서대로 왼쪽에서 오른쪽으로 컴포넌트를 배치하며, 오른쪽에 더 이상 배치할 곳이 없으면 뉴라인 및 캐리지리턴
+    2. BorderLayout
+        * 동서남북 및 중앙으로 나누고, 지정 영역에 배치 
+    3. GridLayout
+        * 2차원 배열과 같이 2차원 그리드 생성 후 좌에서 우로, 위에서 아래로 배치
+    4. CardLayout
+        * 카드에 쌓듯이 컴포넌트들을 포개어 덮어쓰듯 배치
+
+3. 컨테이너의 디폴트 배치관리자
+    * 기본값
+        * Window, JWindow - BorderLayout
+        * Frame, JFrame - BorderLayout
+        * Dialog - BorderLayout
+        * Panel - FlowLayout
+        * Applet - FlowLayout
+    * 다른 배치관리자를 원할 경우
+        * Container 클래스의 setLayout() 메서드를 사용
+        ```java
+        JPanel p = new JPanel();
+        p.setLayout(new BorderLayout());    // new 키워드 빠뜨리지 말 것.
+        ```
+
+4. FlowLayout 생성자
+    ```java
+    FlowLayout()
+    FlowLayout(int align, int hGap, int vGap)
+    ```
+    * align - 정렬 방법 지정. (FlowLayout.LEFT), (FlowLayout.RIGHT), (FlowLayout.CENTER) 모두 대문자를 사용하며 CENTER가 디폴트 값
+    * hGap - 수평 간격. 픽셀 단위이며 디폴트는 5.
+    * vGap - 수직 간격. 픽셀 단위이며 디폴트는 5.
+
+5. BorderLayout 생성자
+    ```java
+    BorderLayout()
+    BorderLayout(int hGap, int vGap)
+    ```
+    * 동서남북 및 중앙은 add 메서드에 추가한다.
+    * hGap - 수평 간격. 픽셀 단위이며 디폴트는 0.
+    * vGap - 수직 간격. 픽셀 단위이며 디폴트는 0.
+
+6. GridLayout 생성자
+    ```java
+    GridLayout()
+    GridLayout(int rows, int cols)
+    GridLayout(int rows, int cols, int hGap, int vGap)
+    ```
+    * rows - 그리드 행의 수, 디폴트는 1.
+    * cols - 그리드 열의 수, 디폴트는 1.
+    * hGap - 수평 간격. 픽셀 단위이며 디폴트는 0.
+    * vGap - 수직 간격. 픽셀 단위이며 디폴트는 0.
+
+7. 배치관리자 제거
+    ```java
+    JPanel p = new JPanel();
+    p.setLayout(null);
+    ```
+    setLayout 메서드를 이용하여 안에 null 값을 집어넣어 배치관리자 제거(절대위치 및 절대크기 지정으로 변함.)
+
+8. 컴포넌트 겹치기
+    * 배치관리자가 없는 컨테이너를 만들면 컴포넌트를 절대 위치에 절대 크기로 마음대로 설정할 수 있기 때문에 컴포넌트들이 서로 겹치도록 배치할 수 있다.
+
+
 ## 9주차 수업 내용(05.03)
 1. 컬렉션
     * 고정 크기의 배열이 가지는 단점을 극복
