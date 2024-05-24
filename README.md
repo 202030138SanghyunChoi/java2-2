@@ -1,5 +1,94 @@
 # 최상현 202030138
 
+## 12주차 수업 내용(05.24)
+1. 이벤트 기반 프로그래밍 - 이벤트의 발생에 의해 프로그램 실행 흐름이 결정되는 프로그래밍 패러다임
+    * 이벤트 - 키 입력, 마우스 클릭, 마우스 드래그 등 사용자의 액션이나 외부 장치로부터의 입력 등에 의해 발생
+    * batch - 프로그램의 개발자가 프로그램의 흐름을 결정
+    * 이벤트 소스 - 이벤트를 발생시킨 GUI 컴포넌트
+    * 이벤트 객체 - 발생한 이벤트에 대해 여러가지 정보를 제공하는 객체
+    * 이벤트 리스너 - 사용자가 작성하며 이벤트를 처리하는 자바 로직 코드 
+    * 이벤트 분배 스레드 - 이벤트 리스너를 호출해주는 스레드
+
+2. 이벤트 처리 과정
+    ![그림11](/image/image11.png)
+    1. 이벤트 발생
+    2. 이벤트 객체 생성
+    3. 응용프로그램에 작성된 이벤트 리스너 찾기
+    4. 이벤트 리스너 실행
+
+3. getSource() 메서드 - 어떤 컴포넌트에 이벤트가 발생했는지 이벤트 소스를 알려줌.
+    ```java
+    JButton b = (JButton)event.getSource(); //b는 이벤트가 발생한 버튼의 레퍼런스
+    ```
+    * *Object를 리턴하기 때문에 캐스팅해서 사용해야하는데 이를 잘 모른다면 컴포넌트에서 발생한 경우 (JButton)으로 캐스팅하면 됨*
+
+4. 이벤트 리스너
+    * 이벤트 리스너 인터페이스에서 상속받고 추상 메서드를 구현하여 이벤트 리스너를 작성
+    * 작성 순서
+        1. 이벤트와 이벤트 리스너 선택
+        2. 이벤트 리스너 클래스 작성
+            ```java
+            class MyActionListener implements ActionListener {
+                public void actionPerformed(ActionEvent e) {
+                    수행할 기능
+                }
+            }
+            ```
+        3. 이벤트 리스너 등록
+            ```java
+            MyActionListener listener = new MyActionListener();
+            
+            btn.addActionListener(listener);
+            또는
+            컴포넌트이름.addXXXListener(listener);
+            ```
+    * 작성 종류
+        1. 독립 클래스로 작성 - 이벤트 리스너를 여러 곳에서 재사용 할 때 적합
+        2. 내부 클래스로 작성 - 이벤트 리스너를 특정 클래스에서만 사용할 때 적합
+        3. 익명 클래스로 작성 - 클래스를 만들 필요 없이 간단한 경우에 적합
+
+5. 어댑터 클래스 - 리스터 인터페이스를 상속 받아 이벤트 리스너를 구현할 때 **리스너 인터페이스의 메서드를 모두 구현해야하는 부담을 줄여주기 위해** 리스너 인터페이스의 추상 메서드를 단순 리턴하도록 제공하는 클래스
+
+6. Key 이벤트와 포커스
+    * 모든 컴포넌트는 Key 이벤트를 받을 수 있기에 포커스(focus)를 가진 컴포넌트가 입력을 독점함. 아래 두 코드가 모두 필요하다.
+    ```java
+    컴포넌트이름.setFocusable(true);   // 컴포넌트가 포커스를 받을 수 있게 허용한다.
+    컴포넌트이름.requestFocus();   // 컴포넌트가 포커스를 받게 한다.
+    ```
+
+7. KeyListener
+    1. keyPressed() - 키를 누르는 순간
+    2. keyReleased() - 키가 떼어질 때
+    3. keyTyped() - 누른 키가 떼어지는 순간(Unicode만. 타입 키 같은 거)
+        * Unicode가 아닌 키 - Function키, Home, Delete, Ctrl키, Shift, Alt 등 문자가 아닌 키
+    ```java
+    컴포넌트이름.addKeyListener(myKeyListener);
+    ```
+
+8. 가상 키와 입력된 키 판별 메서드
+    1. char KeyEvent.getKeyChar() - 입력된 키의 유니코드 값을 리턴. 유니코드 키가 아니라면 KeyEvent.CHAR_UNDEFINED를 리턴 
+    2. int KeyEvent.getKeyCode() - 모든 키에 대해 키 코드(key code)를 리턴
+        * 키 코드 - KeyEvent 클래스에 VK_로 시작하는 static 상수로 선언되어 있음.<br>예시. KeyEvent.VK_??
+
+9. 마우스를 클릭할 때 호출되는 메서드
+    1. mousePressed() - 마우스를 누를 때
+    2. mouseReleased() - 마우스를 뗄 때
+    3. mouseClicked() - 마우스를 누르고 뗀 다음
+    4. mouseDragged() - 마우스를 누르고 떼기 전 마우스를 움직일 때 연속적으로 호출
+
+10. 마우스 리스너
+    ```java
+    컴포넌트이름.addMouseListener(myMouseListener);
+    컴포넌트이름.addMouseMotionListener(myMouseMotionListener);
+    ```
+
+11. 마우스 이벤트 메서드
+    * int getX() - x 좌표
+    * int getY() - y 좌표
+    * int getClickCount() - 마우스 클릭한 회수
+Node.js
+
+
 ## 11주차 수업 내용(05.17)
 1. 배치 관리자 - 컨테이너에 부착되는 컴포넌트의 크기와 위치를 지정.
     * 컴포넌트는 하나의 배치관리자를 가진다.
