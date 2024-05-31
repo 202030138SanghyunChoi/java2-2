@@ -1,5 +1,132 @@
 # 최상현 202030138
 
+## 13주차 수업 내용(05.31)
+1. 자바의 GUI 프로그래밍 방법
+    1. 컴포넌트 기반 GUI 프로그래밍
+        * 스윙 컴포넌트 이용하여 비교적 쉬움
+        * 자바에서 제공하는 컴포넌트의 한계를 못 벗어남
+    2. 그래픽 기반 GUI 프로그래밍
+
+2. 스윙 컴포넌트 상속 구조
+![그림12](./image/image12.png)
+    * 기본적인 스윙 컴포넌트는 JComponent를 상속받으며 이름이 모두 J로 시작
+    * JComponent는 추상 클래스이며, 새로운 컴포넌트를 만들려면 반드시 JComponent를 상속받아야 함.
+
+3. JLabel
+    * 문자열과 이미지를 출력할 때 사용되는 레이블 컴포넌트
+    * 레이블 생성
+        ```java
+        JLabel textLabel = new JLabel("사랑합니다");
+        ```
+    * 이미지를 가진 레이블 생성
+        ```java
+        ImageIcon image = new ImageIcon("images/sunset.jpg");
+        JLabel textLabel = new JLabel(image);
+        ```
+
+4. JButton
+    * 사용자로부터 명령을 입력 받기 위한 목적
+        ```java
+        JButton btn = new JButton("hello");
+        ```
+        또는
+        ```java
+        ImageIcon icon = new ImageIcon("image/image.jpg");
+        JButton btn = new JButton(icon);
+        ```
+
+5. JCheckBox
+    * 선택과 해제의 두 상태만 가진다.
+        ```java
+        JCheckBox apple = new JCheckBox("사과");
+        JCheckBox pear = new JCheckBox("배", true);
+        ```
+
+6. 체크박스에 Item 이벤트 처리 - 체크박스나 라디오버튼이 선택되거나 해제될 때 발생하는 이벤트
+    * ItemEvent의 종류
+        ```java
+        void itemStateChanged(ItemEvent e) // 체크박스의 선택 상태가 변하는 경우 호출
+        int getStateChange() // 체크박스가 선택된 경우 ItemEvent.SELECTED를, 해제된 경우 ItemEvent.DESELECTED를 리턴
+        Obbject getItem() // 이벤트를 발생시킨 아이템 객체 리턴. 체크박스의 경우 JCheckBox 컴포넌트의 레퍼런스 리턴
+        ```
+    * 체크 박스 컴포넌트에 ItemListener 리스너 달기
+    ```java
+    checkbox.addItemListener(new MyItemListener());
+    ```
+
+7. JRadioButton - 버튼 그룹에 속한 하나의 라디오 버튼만 선택 가능
+    ```java
+    // 그룹 객체 생성
+    ButtonGroup group = new ButtonGroup();
+
+    // 각 라디오 객체 생성
+    JRadioButton apple = new JRadioButton("사과");
+    JRadioButton pear = new JRadioButton("배");
+    JRadioButton cherry = new JRadioButton("체리");
+
+    // 그룹에 라디오 변수 추가
+    group.add(apple);
+    group.add(pear);
+    group.add(cherry);
+
+    // 컨테이너에 라디오 변수 포함
+    container.add(apple);
+    container.add(pear);
+    container.add(cherry);
+    ```
+
+8. JTextField - 한 줄의 문자열을 입력받는 창. 텍스트 필드에 문자열 입력 도중 Enter키가 입력되면 Action 이벤트가 발생한다.
+    ```java
+    // 크기가 10인 텍스트 필드 생성(10자 제한인 것은 아님)
+    JTextField tfl = new JTextField(10);
+    // 초기값을 컴퓨터공학과로 가지는 텍스트 필드 생성
+    JTextField tf2 = new JTextField("컴퓨터공학과");
+    // 크기가 20이고 초기값을 "대한민국대학교"로 가지는 텍스트 필드 생성
+    JTextField tf3 = new JtextField("대한민국대학고", 20);
+    ```
+
+9. JTextArea - 여러 줄의 문자열을 입력받을 수 있는 창을 만들 수 있다. 입력 창의 크기보다 많은 줄의 문자를 입력 받을 수 있지만 JScrollPane에 삽입하여야 스크롤바 지원을 받을 수 있다.
+    ```java
+    container.add(new JScrollPane(new JTextArea("hello", 7, 20)));
+    ```
+
+10. JList\<E>
+    * 사용자에게 하나 이상의 아이템을 보여주고 아이템을 선택하도록 하는 리스트 컴포넌트
+    ```java
+    String[] fruits = {"apple", "banana", "kiwi", "mango"}; // 문자열 배열 생성
+    JList<String> strList = new JList<String>(fruits);  // 문자열 JList 생성
+    ```
+
+11. JComboBox\<E>
+    * 텍스트 필드, 버튼, 드롭다운 리스트(클릭해서 스크롤)로 구성되는 콤보 박스
+    ```java
+    // 리스트 박스와 같은 방식
+    String[] fruits = {"apple", "banana", "kiwi", "mango"}; // 문자열 배열 생성
+    JComboBox<String> strList = new JComboBox<String>(fruits);  // 문자열 콤보박스 생성
+    ```
+
+12. 메뉴 구성
+    * 메뉴 필요 요소
+        * 메뉴 아이템 - JMenuItem을 이용하여 생성
+        * 메뉴 - 여러개의 메뉴 아이템을 가진다. JMenu를 이용하여 생성
+        * 메뉴바 - 메뉴들을 붙이는 바. JMenuBar를 이용하여 생성
+        * 분리선 - 메뉴 아이템 사이의 분리선으로서 separator라고 부르며, JMenu의 addSeparator() 메서드를 호출하여 삽입
+    * 메뉴 만들기
+    ![그림13](image/image13.png)
+
+13. 메뉴 아이템에 Action 이벤트 달기
+    ```java
+    JMenuItem item = new JMenuItem("Load");
+    item.addActionListener(new MenuActionListener());
+    ```
+
+14. 팝업 다이얼로그 - 사용자에게 메시지를 전달하거나 문자열을 입력받을 수 있는 간단한 팝업 창.
+    1. showInputDialog() - 사용자에게 한 줄을 입력 받는 다이얼로그. 리턴 값으로 사용자가 입력한 문자열이 오고 취소 버튼이 선택되거나 창이 닫히면 null값을 리턴한다.
+    2. showConfirmDialog() - 사용자에게 확인을 받는 다이얼로그. 리턴 값으로 사용자가 선택한 옵션 종류를 반환한다(YSE_OPTION, NO_OPTION, CANCEL_OPTION, OK_OPTION, CLOSED_OPTION)
+    3. showMessageDialog() - 사용자에게 문자열 메시지를 전달하는 다이얼로그.
+Node.js
+
+
 ## 12주차 수업 내용(05.24)
 1. 이벤트 기반 프로그래밍 - 이벤트의 발생에 의해 프로그램 실행 흐름이 결정되는 프로그래밍 패러다임
     * 이벤트 - 키 입력, 마우스 클릭, 마우스 드래그 등 사용자의 액션이나 외부 장치로부터의 입력 등에 의해 발생
