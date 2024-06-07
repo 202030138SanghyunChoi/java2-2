@@ -1,5 +1,188 @@
 # 최상현 202030138
 
+## 14주차 수업 내용(06.07)
+1. paintComponent()
+    * 스윙 컴포넌트가 자신의 모양을 그리는 메서드
+        ```java
+        public void paintComponent(Graphics g)
+        ```
+
+2. paintComponent() 오버라이딩
+    * JComponent를 상속 받아 새로운 컴포넌트를 설계할 때
+    * 기존의 스윙 컴포넌트 모양에 변화를 줄 때
+
+3. 그래픽 기반 GUI 프로그래밍
+    ```java
+    Graphics g;
+    g.drawString("여러가지 메서드 활용", 30, 20);
+    g.setColor(new Color(255, 0, 0));
+    ```
+    * 스윙 컴포넌트에 의존하지 않고, 선, 원, 이미지 등을 이용하여 직접 화면을 구성하는 기능
+
+4. Graphics 좌표 체계
+    * ![그림14](/image/image14.png)
+    * 자바 그래픽의 좌표 값은 그래픽 대상 컴포넌트의 왼쪽 상단 모서리가 (0,0)이고, 오른쪽으로는 x 값이 증가하고, 아래 쪽으로는 y 값이 증가
+
+5. 문자열 그리기
+    ```java
+    void drawString(String str, int x, int y)
+    ```
+    * str을 (x, y) 좌표에 출력한다.
+
+5. Color
+    ```java
+    Color(int r, int g, int b)  // r, g, b 값
+    Color(int rgb)  // 16진수 rgb 값
+    ```
+    * 각 rgpb 값으로 색상을 설정한다.
+
+6. Font
+    ```java
+    Font(String fontface, int style, int size)
+    ```
+    * fontface - "Ariel"과 같은 포트 이름
+    * style - Font.BOLD, Font.ITALIC 과 같은 문자 스타일
+    * size - 픽셀 단위 문자 크기
+
+7. 도형 그리기
+    ```java
+    void drawLine(int x1, int y1, int x2, int y2)
+    void drawOval(int x, int y, int w, int h)
+    void drawRect(int x, int y, int w, int h)
+    void drawRoundRect(int x, int y, int w, int h, int arcWidth, int arcHeight)
+    ```
+    * drawLine - (x1,y1) 에서 (x2,y2) 까지 선을 긋는다.
+    * drawOval - (x, y) 에서 w(너비)*h(높이) 크기의 사각형에 내접하는 원을 그린다.
+    * drawRect - (x, y) 에서 w(너비)*h(높이) 크기의 사각형을 그린다.
+    * drawRoundRect - (x, y) 에서 w(너비)*h(높이) 크기의 사각형을 그린다. 이때 모서리는 arcWidth(수평 반지름)과 arcHeight(수직 반지름) 만큼 둥글게 자른다.
+
+8. 원호와 폐다각형
+    ```java
+    void drawArc(int x, int y, int w, int h, int startAngle, int arcAngle)
+    void drawPolygon(int []x, int []y, int n)
+    ```
+    * drawArc - (x, y) 에서 w(너비)*h(높이) 크기의 사각형에 내접하는 원호를 그린다. stratAngle 각도부터 arcAngle 각도까지 그린다.
+    * drawPolygon - x, y 배열에 저장된 점들 중 n개를 연결하는 폐다각형을 그린다.
+
+9. 도형 칠하기
+    drawRect(), drawArc() 에서 fillRect(), fillArc()로 바꾸기만 하면 된다.(나머지 파라미터는 모두 동일)
+
+10. drawImage() - 이미지를 그리는 메서드
+    ```java
+    boolean drawImage(Image img, int x, int y, int width, int height, Color bgColor, ImageObserver observer)
+    ```
+    * img를 그래픽 영역의 (x, y) 좌표에 width, height만큼 크기로 이미지를 삽입하고, 이미지의 투명한 부분에 bgColor의 배경색을 채운다.
+
+11. repaint()
+    ```java
+    component.repaint();
+    component.getParent().repaint();    // 부모 리페인팅
+    ```
+    * 자바 플랫폼에게 컴포넌트의 페인팅을 실행할 것을 간접적으로 지시하는 메서드
+    * 부모 컴포넌트를 다시 그리면 당연히 자신 뿐 아니라 부모의 모든 자식들이 다시 페인팅된다.
+
+12. 멀티 태스킹 - 다수의 작업을 동시에 처리하는 것(대부분의 프로그램은 멀티태스킹이 된다.)
+
+13. 스레드 - 운영체제에 의해 관리되는 하나의 작업 혹은 테스크
+    * 멀티스레딩 - 다수의 스레드를 동시에 실행시키도록 응용프로그램을 작성하는 기법
+    * 스레드 코드 - 작업을 실행하기 위해 사용자가 작성한 프로그램 코드
+    * 스레드 정보 - 운영체제가 관리하는 스레드 정보
+
+14. 멀티 프로세싱
+    * 하나의 응용프로그램을 여러 개의 프로세스로 구성하여 각 프로세스가 하나의 작업을 처리하도록 하는 기법
+    * 각 프로세스는 고유한 메모리 영역을 보유하고, 독립적으로 실행
+    * 프로세스 사이의 문맥 교환에 따라 과도한 작업량과 시간 소모가 문제가 된다.
+
+15. 멀티 스레딩
+    * ![그림15](/image/image15.png)
+    * 하나의 응용프로그램을 여러 개의 스레드로 구성하고 각 스레드로 하여금 하나의 작업을 처리하도록 하는 기법
+    * 스레드 - 응용프로그램 내의 자원과 메모리를 공유하므로 통신에 따른 오버헤드가 비교적 크지 않고, 스레드 사이의 문맥 교환 시 작업량이 작아 문맥 교환이 빠르다.
+
+16. 자바 스레드 - 자바 가상 기계(JVM)에 의해 관리(운영체제의 역할). 스레드 스케줄링 역시 전적으로 JVM에 의해 이루어진다.
+    * 스레드가 몇 개 존재하는 지, 스레드로 실행되는 프로그램 코드의 메모리 위치는 어디인지, 스레드의 상태는 무엇인지, 스레드의 우선순위는 얼마인 지 등의 정보들도 모두 JVM이 관리
+
+17. 자바 스레드 마는 방법
+    1. Thread 클래스 이용
+    2. Runnable 인터페이스 이용
+
+18. Thread 메서드
+    * void run() - 스레드 코드로서 JVM에 의해 호출
+    * void start() - JVM에게 스레드 실행을 시작하도록 요청
+
+19. 자바 스레드 만들기(Thread 상속)
+    1. Thread 클래스 상속받아 run() 오버라이딩
+        ```java
+        class TimerThread extends Thread {
+            public void run() {
+                ~~~
+            }
+        }
+        ```
+    2. 스레드 객체 생성
+        ```java
+        TimerThread th = new TimerThread();
+        ```
+    3. 스레드 시작 - start() 메서드 호출
+        ```java
+        th.start();
+        ```
+
+20. 자바 스레드 만들기(Runnable 인터페이스 구현)
+    1. Runnable 인터페이스 구현(이 부분만 다르고 나머지는 동일한 방식)
+        ```java
+        class TimerRunnable implements Runnable {
+            public void run() {
+
+            }
+        }
+        ```
+    2. 스레드 객체 생성
+    ```java
+    TimerThread th = new TimerThread();
+    ```
+    3. 스레드 시작 - start() 메서드 호출
+        ```java
+        th.start();
+        ```
+
+21. main 스레드 - JVM은 자바 응용프로그램을 실행하기 직전, 스레드를 하나 생성하고, 이 스레드로 하여금 main()메서드를 실행한다.
+
+22. 스스로 종료 - 스레드는 run() 메서드를 종료하거나 리턴하는 경우 종료된다.
+    ```java
+    public void run() {
+        return;
+    }
+    ```
+
+23. 타 스레드의 강제 종료
+    * ![그림16](/image/image16.png)
+    * 종료시키고자 하는 스레드 객체의 interrupt() 메서드 호출
+    ```java
+    th.interrupt();
+
+    ~~~
+
+    try {
+
+    } catch(InterruptedException e) {
+		return; // 리턴하면 스레드 종료
+	}
+    ```
+
+24. 스레드 동기화
+    * 공유 데이터를 동시 접근하는 여러 스레드에 의해 공유 데이터의 값이 비정상적으로 유지되지 않도록 스레드의 실행을 제어하는 기술
+    1. synchronized로 동기화 블록 지정
+    2. wait()-notify() 메서드로 스레드 실행 순서 제어
+
+25. synchromized 키워드
+    * 스레드 동기화를 위한 장치로서, 코드 블록을 동기화가 설정된 임계 영역으로 지정
+    * 쉽게 말해 한 스레드가 공유 데이터에 접근하는 순간 잠궈서 다른 스레드가 공유 데이터에 접근하지 못하게 함
+
+26. wait()-notify() ((입력 스레드와 출력 스레드로 비교))
+    1. 네크워크 속도가 갑자기 떨어져서 입력 스레드의 공급이 늦어지는 경우 - 출력 스레드가 버퍼가 찰 때까지 wait하고, 버퍼가 차면 출력 스레드를 notify한다.
+    2. 네크워크 속도가 순간적으로 빨라져서 출력 스레드가 입력 스레드의 버퍼를 소비하지 못한 경우 - 출력 스레드가 버퍼를 소비할 때 까지 입력 스레드가 wait하고, 출력 스레드가 버퍼를 소비하면 입력 스레드에 notify한다.
+
+
 ## 13주차 수업 내용(05.31)
 1. 자바의 GUI 프로그래밍 방법
     1. 컴포넌트 기반 GUI 프로그래밍
@@ -124,7 +307,6 @@
     1. showInputDialog() - 사용자에게 한 줄을 입력 받는 다이얼로그. 리턴 값으로 사용자가 입력한 문자열이 오고 취소 버튼이 선택되거나 창이 닫히면 null값을 리턴한다.
     2. showConfirmDialog() - 사용자에게 확인을 받는 다이얼로그. 리턴 값으로 사용자가 선택한 옵션 종류를 반환한다(YSE_OPTION, NO_OPTION, CANCEL_OPTION, OK_OPTION, CLOSED_OPTION)
     3. showMessageDialog() - 사용자에게 문자열 메시지를 전달하는 다이얼로그.
-Node.js
 
 
 ## 12주차 수업 내용(05.24)
