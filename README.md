@@ -1,11 +1,28 @@
 # 최상현 202030138
 
 ## 14주차 수업 내용(06.14)
-1. 입출력 스트림 - 응용프로그램과 입출력 장치를 연결하는 소프트웨어 모듈f
+1. 입출력 스트림 - 응용프로그램과 입출력 장치를 연결하는 소프트웨어 모듈
     * 문자 스트림 - 문자만 다룰 수 있기 때문에 문자가 아닌 데이터가 문자 출력 스트림에 입력되면 오류가 발생
     * 바이트 스트림 - 바이트를 단위로 다루는 스트림으로써 스트림에 들어오고 나가는 정보를 단순 바이트로 다루기에 문자든 이미지든 바이트든 흘려보낸다.
 
-2. 스트림 연결
+2. 입력 스트림
+    1. 스트림 연결 - 키보드로부터 문자를 입력받기 위해 System.in과 inputStreamReader를 연결
+    ```java
+    InputStreamReader rd = new InputStreamReader(System.in);
+    ```
+    2. 스트림 출력 - rd.read()는 파일로부터 문자 하나를 리턴하며, 파일의 끝(EOF)을 만나면 -1을 리턴한다.
+    ```java
+    while(true) {
+        int c = rd.read();
+        if(c == -1) {
+            break;
+        }
+    }
+    ```
+    3. 스트림 닫기 - 작업을 전부 수행했으면 close() 메서드를 호출해서 스트림을 닫아야 함.
+        ```java
+        fout.close();
+        ```
 
 3. 텍스트 파일 읽기
     1. 파일 입력 스트림 생성 - 파일 입력 스트림을 생성하고, 파일과 연결한다.
@@ -19,19 +36,33 @@
             System.out.print((char)c);
         }
         ```
-    3. 스트림 닫기 - 스트림이 더 이상 필요 없게 되면 닫아야한다.
+    3. 스트림 닫기 - 작업을 전부 수행했으면 close() 메서드를 호출해서 스트림을 닫아야 함.
         ```java
-        fin.close();
+        fout.close();
         ```
 
 4. 파일 입출력 예외 처리
+    1. FileNotFoundException - 파일의 경로명이 틀리거나, 어떤 상황으로 파일을 열 수 없는 경우
+    2. IOException - 파일 읽기, 쓰기, 닫기를 하는 동안 디스크 오작동이나 파일이 깨진 경우
 
 5. 텍스트 파일 쓰기
+    1. 파일 출력 스트림 생성
+        ```java
+        FileWriter fout = new FileWriter("C:\\Temp\\test.txt");
+        ```
+    2. 파일 쓰기 - write() 메서드 이용
+        ```java
+        fout.write('A');
+        ```
+    3. 스트림 닫기 - 작업을 전부 수행했으면 close() 메서드를 호출해서 스트림을 닫아야 함.
+    ```java
+    fout.close();
+    ```
 
 6. 바이너리 파일 쓰기
     1. 파일 출력 스트림 생성
         ```java
-        FileOutputStream fout = new FileOutputStream("c:\\Temp\\test.out")
+        FileOutputStream fout = new FileOutputStream("c:\\Temp\\test.out");
         ```
     2. 파일 쓰기
         ```java
@@ -42,9 +73,28 @@
         또는
         fout.write(b);
         ```
-    3. 
+    3. 스트림 닫기 - 작업을 전부 수행했으면 close() 메서드를 호출해서 스트림을 닫아야 함.
+    ```java
+    fout.close();
+    ```
 
-7. sd
+7. 바이너리 파일 읽기
+    1. 파일 읽기 스트림 생성
+        ```java
+        FileInputStream fout = new FileOutputStream("c:\\Temp\\test.out");
+        ```
+    2. 파일 일기
+        ```java
+        int n=0, c;
+        while ((c=fin.read()) != -1) {
+            b[n] = (byte)c;
+            n++;
+        }
+        ```
+    3. 스트림 닫기 - 작업을 전부 수행했으면 close() 메서드를 호출해서 스트림을 닫아야 함.
+    ```java
+    fout.close();
+    ```
 
 8. File 클래스
     * 파일이나 디렉토리에 대해 경로명, 파일 크기, 파일 타입, 파일 수정 날짜 등 파일에 관한 속성 정보를 제공
@@ -65,15 +115,32 @@
     * listFiles() - 파일과 서브 디렉토리 경로명을 File[] 배열로 리턴
 
 10. 파일 복사
+    * 텍스트 파일 - FileReader로 파일을 읽은 다음에 FileWriter로 쓰면 텍스트 파일 복사
+    * 바이너리 파일 - FileInputStream으로 파일을 읽은 다음에 FileOutputStream으로 쓰면 파일 복사
+    * 블록 단위로 파일 고속 복사 - FileInputStream과 FileOutputStream 대신 BufferInputStream과 BufferOutputStream을 사용
 
-11. TCP/IP
+11. TCP/IP(Transmission Control Protocol/Internet Protocol)
     * 두 시스템 간에 데이터가 손상없이 안전하게 전송되도록 하는 통신 프로토콜
     * 연결형 통신
     * 순서대로 응용프로그램에게 전달
 
 12. IP 주소
     * 네트워크상에서 유일하게 식별될 수 있는 네트워크 장치의 주소
-    
+    * IPv4의 경우 4개의 숫자가 .으로 연결되며 숫자 범위는 0~255까지(2진수 11111111)
+    * 도메인 - 도메인 이름을 사용하면 DNS서버가 숫자로 구성된 IP 주소로 자동 변환
+    * 자신의 컴퓨터에서는 자신의 IP주소를 127.0.0.1(또는 localhost)로 지정
+    * 윈도우의 경우 ipconfig 명령어로 관련 정보 확인 가능
+
+13. 포트
+    * 한 컴퓨터에서 여러 소프트웨어들의 통신 가능
+    * ssh - 22
+    * ftp - 21
+    * http - 80
+    * https - 443
+
+14. 소켓
+    * 두 응용프로그램 간의 통신 연결의 끝단(endpoint)으로 연결되기만 하면 데이터를 주고받는 TCP/IP 소프트웨어 모듈
+    * 서버 소켓과 클라이언트 소켓으로 나뉨
 책갈피
 
 
